@@ -7,8 +7,7 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-  } from "../../components/ui/card";
-import './Home.css';
+  } from "../components/ui/card";
 
 const Home: React.FC = () => {
 
@@ -20,10 +19,10 @@ const Home: React.FC = () => {
 
     return (
     <>
-        <h1 className='page-title'>Bundles</h1>
+        <h1 className='text-center text-[35px] mt-[30px] mb-3.5'>Bundles</h1>
 
-        <div className='card-container'>
-            <Card  className='card' onClick={handleCardClick}>
+        <div className='flex flex-wrap gap-4 justify-center m-[15px]'>
+            <Card  className='flex-[0_1_calc(33.3333%_-_16px)] transition-shadow duration-[0.3s] hover:shadow-[0_0_10px_rgba(0,0,0,0.2)] hover:cursor-pointer' onClick={handleCardClick}>
                 <CardHeader>
                     <CardTitle>Card Title</CardTitle>
                     <CardDescription>Card Description</CardDescription>
