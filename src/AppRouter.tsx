@@ -1,9 +1,10 @@
 // AppRouter.tsx
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home/Home';
-import Bundle from './pages/Bundle/Bundle';
+import Home from './pages/Home';
+import Bundle from './pages/Bundle';
 import BundleNew from './pages/BundleNew';
+
 
 const AppRouter: React.FC = () => {
   return (
