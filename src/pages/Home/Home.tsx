@@ -8,7 +8,9 @@ import {
     CardHeader,
     CardTitle,
   } from "../../components/ui/card";
+import { Button } from "../../components/ui/button";
 import './Home.css';
+import PageFooter from '@/components/ui/pageFooter';
 
 const Home: React.FC = () => {
 
@@ -16,6 +18,10 @@ const Home: React.FC = () => {
 
     const handleCardClick = () => {
         navigate('/bundle');
+    };
+
+    const createBundle = () => {
+        navigate('/new-bundle');
     };
 
     return (
@@ -38,6 +44,11 @@ const Home: React.FC = () => {
 
         </div>
 
+        <Button className='' onClick={createBundle}>
+          Créer un bundle
+        </Button>
+
+        <PageFooter></PageFooter>
     </>
     );
   

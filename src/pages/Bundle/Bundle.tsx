@@ -11,6 +11,7 @@ import {
 } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
 import './Bundle.css';
+import PageFooter from '@/components/ui/pageFooter';
 
 const Bundle: React.FC = () => {
 
@@ -69,6 +70,8 @@ const Bundle: React.FC = () => {
       <Button className='return-button' onClick={handleGoBack}>
           Retour
       </Button>
+
+      <PageFooter></PageFooter>
 
     </>
   );
