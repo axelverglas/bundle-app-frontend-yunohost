@@ -11,6 +11,19 @@ import {
 } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    //DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+  } from "@/components/ui/dialog"
+  //import { Input } from "@/components/ui/input"
+  //import { Label } from "@/components/ui/label"
+
+
 const Bundle: React.FC = () => {
 
   const navigate = useNavigate();
@@ -33,7 +46,23 @@ const Bundle: React.FC = () => {
                 <p>Card Content</p>
             </CardContent>
             <CardFooter>
-                <p>Card Footer</p>
+
+              <Dialog>
+              <DialogTrigger>
+                <Button variant="outline">Edit Profile</Button>
+              </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle><h1>Nom de l'app</h1></DialogTitle>
+                    <DialogDescription>
+                      This action cannot be undone. This will permanently delete your account
+                      and remove your data from our servers.
+                    </DialogDescription>
+                  </DialogHeader>
+                </DialogContent>
+              </Dialog>
+            
+                
             </CardFooter>
         </Card>
 
@@ -69,6 +98,9 @@ const Bundle: React.FC = () => {
           Retour
       </Button>
 
+
+
+      
     </>
   );
 };
