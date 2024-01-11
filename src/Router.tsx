@@ -4,6 +4,7 @@ import Applayout from './components/layout/app-layout';
 import Home from './pages/home';
 import Error from './pages/error';
 import { Bundle } from './pages/bundle';
+import CreateBundle from './pages/create-bundle';
 
 export const router = createBrowserRouter([
     {
@@ -17,6 +18,10 @@ export const router = createBrowserRouter([
             {
                 path: 'bundle/:bundleId',
                 element: <Bundle />,
+            },
+            {
+                path: 'bundle/create',
+                element: <CreateBundle />,
             },
         ],
     },
