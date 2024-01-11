@@ -16,7 +16,9 @@ export default function BundleList() {
                         <CardHeader>
                             <CardTitle>{bundle.title}</CardTitle>
                             <CardDescription>{bundle.description}</CardDescription>
-                            <a className={cn(buttonVariants({ variant: 'link' }), 'w-fit p-0')}>Voir ce bundle</a>
+                            <a href={`/bundle/${bundle.id}`} className={cn(buttonVariants({ variant: 'link' }), 'w-fit p-0')}>
+                                Voir ce bundle
+                            </a>
                         </CardHeader>
                     </Card>
                 ))}
