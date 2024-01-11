@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Applayout from './components/layout/app-layout';
 import Home from './pages/home';
 import Error from './pages/error';
-import { Bundle } from './pages/bundle';
+import Bundle from './pages/Bundle';
 import CreateBundle from './pages/create-bundle';
 
 export const router = createBrowserRouter([
@@ -22,16 +22,6 @@ export const router = createBrowserRouter([
             {
                 path: 'bundle/create',
                 element: <CreateBundle />,
-            },
-        ],
-    },
-    {
-        path: '/bundle',
-        element: <Applayout />,
-        children: [
-            {
-                path: '',
-                element: <Bundle />,
             },
         ],
     },
