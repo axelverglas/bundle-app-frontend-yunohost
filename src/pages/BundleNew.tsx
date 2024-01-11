@@ -1,24 +1,23 @@
-// About.tsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import { Button } from "../components/ui/button";
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import MultiSelect from '@/components/ui/multiSelect';
-import PageFooter from '@/components/ui/pageFooter';
+import { useGetApps } from '@/api/app';
 
-const BundleNew: React.FC = () => {
+
+export default function BundleNew() {
+
+  const { data: apps, isLoading, error } = useGetApps();
+  
+  const options = Object.keys(apps?.apps || {}).map((key, index) => ({
+    value: apps?.apps[key]?.manifest?.id || key,
+    label: apps?.apps[key]?.manifest?.name || key
+  }));
 
   const [selectedApps, setSelectedApps] = useState<string[]>([]);
 
@@ -29,18 +28,20 @@ const BundleNew: React.FC = () => {
   };
 
   const formSchema = z.object({
-    name: z.string().min(2, {
+    title: z.string().min(2, {
         message: "Le nom du bundle doit être d'au moins 2 caractères."
     }).max(30, {
         message: "Le nom du bundle ne peut pas dépasser 30 caractères.",
     }),
+    description : z.string(),
     apps: z.array(z.string())
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      title: "",
+      description: "",
       apps: []
     },
   });
@@ -54,18 +55,6 @@ const BundleNew: React.FC = () => {
     console.log(values)
   };
 
-  const options = [
-    { value: 'option1', label: 'Option 1' },
-    { value: 'option2', label: 'Option 2' },
-    { value: 'option3', label: 'Option 3' },
-    { value: 'option4', label: 'Option 4' },
-    { value: 'option5', label: 'Option 5' },
-    { value: 'option6', label: 'Option 6' },
-    { value: 'option7', label: 'Option 7' },
-    { value: 'option8', label: 'Option 8' },
-    { value: 'option9', label: 'Option 9' }
-  ];
-
 
   return (
     <div className='flex flex-col items-center'>
@@ -76,12 +65,26 @@ const BundleNew: React.FC = () => {
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
             <FormField
               control={form.control}
-              name='name'
+              name='title'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Nom du bundle</FormLabel>
                   <FormControl>
                     <Input placeholder='Bundle Name' {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name='description'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description du bundle</FormLabel>
+                  <FormControl>
+                    <Input placeholder='Grâce à ce bundle, vous pouvez...' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -105,8 +108,10 @@ const BundleNew: React.FC = () => {
               <div className='mt-4'>
                 <h3 className='text-lg font-semibold'>Applications sélectionnées :</h3>
                 <ul>
-                  {selectedApps.map((app) => (
-                    <li key={app}>{app}</li>
+                  {selectedApps.map((appValue) => (
+                    <li key={appValue}>
+                      {options.find((option) => option.value === appValue)?.label}
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -123,10 +128,7 @@ const BundleNew: React.FC = () => {
         Retour
       </Button>
 
-      <PageFooter></PageFooter>
     </div>
 
   );
 };
-
-export default BundleNew;

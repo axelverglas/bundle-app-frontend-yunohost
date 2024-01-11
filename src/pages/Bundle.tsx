@@ -11,14 +11,19 @@ import {
 } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import PageFooter from '@/components/ui/pageFooter';
+import { useGetBundle } from '@/api/bundle';
 
 const Bundle: React.FC = () => {
 
-  const navigate = useNavigate();
+    const { data: appsInfo } = useGetBundle(1);
 
-  const handleGoBack = () => {
-    navigate('/');
-  };
+    console.log(appsInfo?.apps);
+
+    const navigate = useNavigate();
+
+    const handleGoBack = () => {
+        navigate('/');
+    };
 
   return (
     <>
