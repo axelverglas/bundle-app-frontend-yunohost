@@ -1,46 +1,12 @@
+"use client"
+
 import * as React from "react"
 import * as SelectPrimitive from "@radix-ui/react-select"
 import { Check, ChevronDown, ChevronUp } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
-interface SelectProps {
-  options: { value: string; label: string }[];
-  isMulti?: boolean;
-  onChange?: (selectedOptions: any) => void;
-  value?: string[];
-}
-
-const Select: React.FC<SelectProps> = ({ options, isMulti, onChange, value, ...otherProps }) => {
-  const [selectedValues, setSelectedValues] = React.useState<string[]>([]);
-
-  const handleChange = (selectedOptions: any) => {
-    const selectedValues = selectedOptions.map((option: any) => option.value);
-    setSelectedValues(selectedValues);
-
-    if (onChange) {
-      onChange(selectedOptions);
-    }
-  };
-
-  return (
-    <SelectPrimitive.Root value={selectedValues.join(',')} onValueChange={handleChange} {...otherProps}>
-      <SelectPrimitive.Content>
-  {options.map((option) => (
-    <SelectPrimitive.Item key={option.value} value={option.value}>
-      {/* Display the name of the app */}
-      {option.label}
-      {options.map((option) => (
-  <div key={option.value}>{option.label}</div>
-))}
-    </SelectPrimitive.Item>
-  ))}
-</SelectPrimitive.Content>
-
-    </SelectPrimitive.Root>
-  );
-};
-
+const Select = SelectPrimitive.Root
 
 const SelectGroup = SelectPrimitive.Group
 
