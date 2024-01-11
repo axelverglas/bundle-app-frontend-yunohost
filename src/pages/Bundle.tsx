@@ -51,14 +51,14 @@ const Bundle: React.FC = () => {
                 <DialogTrigger>
                   <Button variant="outline">Edit Profile</Button>
                 </DialogTrigger>
-                <DialogContent className='h-[90%]'>
+                <DialogContent>
                   <DialogHeader>
-                    <DialogTitle className='text-center'><h1>Nom de l'app</h1></DialogTitle>
+                    <DialogTitle className='text-center pb-[2%]'><h1>Nom de l'app</h1></DialogTitle>
                     <img src="https://cdn.helloasso.com/img/logos/yeswiki-3a2178a821694d8297d746434ab6f356.png?resize=fill:140:140" alt="" className='inline-block w-[20%] h-auto rounded-[50%] border-[none] block m-auto'/>
                     
                     <DialogDescription>
 
-                    <ScrollArea className="h-[95%] rounded-md border p-4">
+                    <ScrollArea className="h-[100%] rounded-md border p-4 mb-[-5%]">
                     <p className='pb-[5%]'>This action cannot be undone. This will permanently delete your account
                       and remove your data from our servers.</p>
                       <img src="https://interpole.xyz/cache/YeswikI2_imagebf_image_Screenshot_20221108_at_142514_Bienvenue_sur_YesWiki_vignette_600_600_20221108142653_20221108142653.png" alt="" className='w-auto h-[90%]'/>
