@@ -7,7 +7,6 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import AppCard from './app-card';
-import React from 'react';
 import { api } from '../lib/api';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
