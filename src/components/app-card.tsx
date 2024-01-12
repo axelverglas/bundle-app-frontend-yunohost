@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
+import { Skeleton } from './ui/skeleton';
 
 interface AppCardProps {
     app: App;
@@ -25,7 +26,15 @@ const AppCard: React.FC<AppCardProps> = ({ app, onSelect }) => {
                 <Dialog>
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                            <img src={app.logo} alt={app.name} className="w-16 h-16 mb-4" />
+                            {app.logo ? (
+                                <img
+                                    src={`https://app.yunohost.org/default/v3/logos/${app.logo}.png`}
+                                    alt={app.name}
+                                    className="rounded-md w-16 h-16"
+                                />
+                            ) : (
+                                <Skeleton className="rounded-md w-16 h-16" />
+                            )}
                             <CardTitle>{app.name}</CardTitle>
                         </div>
                         <DialogTrigger>
@@ -49,14 +58,10 @@ const AppCard: React.FC<AppCardProps> = ({ app, onSelect }) => {
                     <CardDescription>{app.description}</CardDescription>
                     <DialogContent>
                         <DialogHeader>
-                            <DialogTitle>{app.description}</DialogTitle>
-                            <DialogDescription>
-                                <img
-                                    src="https://github.com/YunoHost-Apps/nextcloud_ynh/blob/master/doc/screenshots/screenshot.png?raw=true"
-                                    alt={app.name}
-                                />
-                            </DialogDescription>
+                            <DialogTitle>{app.name}</DialogTitle>
+                            <DialogDescription>{app.description}</DialogDescription>
                         </DialogHeader>
+                        <img src={app.screenshot} alt={app.name} />
                     </DialogContent>
                 </Dialog>
             </CardHeader>
