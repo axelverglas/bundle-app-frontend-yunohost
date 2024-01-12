@@ -75,11 +75,7 @@ export default function FormInstall({ id }: { id: number }) {
         }
     }
 
-    const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] = useState(false);
 
-    const handleShowConfirmationDialog = () => {
-        setIsConfirmationDialogOpen(true);
-    };
 
 
     return (
@@ -202,7 +198,7 @@ export default function FormInstall({ id }: { id: number }) {
                         </Button>
                         <Dialog>
                             <DialogTrigger>
-                                <Button type="submit" onClick={handleShowConfirmationDialog}>
+                                <Button type="submit">
                                     Installer
                                 </Button>
                             </DialogTrigger>
