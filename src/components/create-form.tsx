@@ -23,10 +23,6 @@ export default function BundleNew() {
 
     const navigate = useNavigate();
 
-    const handleGoBack = () => {
-        navigate('/');
-    };
-
     const formSchema = z.object({
         title: z
             .string()
@@ -65,7 +61,6 @@ export default function BundleNew() {
     };
 
     async function onSubmit(data: z.infer<typeof formSchema>) {
-        console.log(data);
         try {
             await api.post(`${import.meta.env.VITE_API_URL}/api/bundle/`, data);
             navigate('/');
@@ -75,12 +70,12 @@ export default function BundleNew() {
     }
 
     return (
-        <div className="flex flex-col items-center">
-            <h1 className="text-3xl mb-4 mt-4">Créer un bundle</h1>
+        <div className="flex flex-col gap-6">
+            <h1 className="text-3xl font-bold tracking-tight">Créer un bundle</h1>
 
-            <div className="w-full max-w-lg m-4">
+            <div className="w-full max-w-lg">
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                         <FormField
                             control={form.control}
                             name="title"
@@ -133,16 +128,12 @@ export default function BundleNew() {
                             </div>
                         )}
 
-                        <Button type="submit" className="w-full">
+                        <Button type="submit" className="w-fit">
                             Créer
                         </Button>
                     </form>
                 </Form>
             </div>
-
-            <Button className="mt-5" onClick={handleGoBack}>
-                Retour
-            </Button>
         </div>
     );
 }
