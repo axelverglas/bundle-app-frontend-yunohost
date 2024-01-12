@@ -10,13 +10,16 @@ import AppCard from './app-card';
 import React from 'react';
 import { api } from '../lib/api';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
 
 export default function FormInstall({ id }: { id: number }) {
     const { data: admins, isLoading: isLoadingAdmins } = useGetAdmins();
     const { data: bundle, isLoading: isLoadingBundle } = useGetOneBundle(id);
     const { data: allDomains, isLoading: isLoadingDomains } = useGetDomains();
 
-    const [selectedApps, setSelectedApps] = React.useState<string[]>([]);
+    const [selectedApps, setSelectedApps] = useState<string[]>([]);
+    const [installationMessages, setInstallationMessages] = useState<string[]>([]);
 
     const navigate = useNavigate();
 
@@ -54,25 +57,42 @@ export default function FormInstall({ id }: { id: number }) {
                 password: data.password,
             };
         });
-        console.log(appData);
-
         try {
             await api.post(`${import.meta.env.VITE_API_URL}/api/install`, appData);
-            const eventSource = new EventSource('https://dcm1tlg2.nohost.me/api/install/updates');
-
-            eventSource.onmessage = (event) => {
-                console.log("Mise à jour de l'installation:", event.data);
-
-                // Vérifiez si le message contient 'Installation completed'
-                if (event.data.includes('Installation completed')) {
-                    eventSource.close(); // Fermez l'EventSource
-                    navigate('/'); // Redirigez vers la page d'accueil
-                }
-            };
         } catch (error) {
             console.error('Erreur lors de la création du bundle :', error);
         }
     }
+
+    useEffect(() => {
+        const eventSource = new EventSource(`${import.meta.env.VITE_API_URL}/api/install/updates`);
+
+        eventSource.onmessage = (event) => {
+            try {
+                const parsedData = JSON.parse(event.data);
+                if (parsedData && parsedData.message) {
+                    setInstallationMessages((prevMessages: string[]) => [...prevMessages, parsedData.message]);
+                }
+            } catch (error) {
+                console.error('Erreur lors du parsing des données SSE:', error);
+            }
+            if (event.data.includes('Installation completed')) {
+                eventSource.close();
+                navigate('/');
+            }
+        };
+
+        eventSource.onerror = (error) => {
+            console.error('Erreur SSE :', error);
+            eventSource.close();
+        };
+
+        return () => {
+            eventSource.close();
+        };
+    }, [navigate]);
+
+    console.log(installationMessages);
 
     return (
         <div className="flex flex-col gap-6">
@@ -192,9 +212,24 @@ export default function FormInstall({ id }: { id: number }) {
                         <Button type="button" variant="ghost" onClick={() => navigate('/')}>
                             Retour
                         </Button>
-                        <Button type="submit" className="w-fit">
-                            Installer
-                        </Button>
+                        <Dialog>
+                            <DialogTrigger>
+                                <Button type="submit">Installer</Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>Installation...</DialogTitle>
+                                </DialogHeader>
+                                <DialogDescription>Informations de téléchargement...</DialogDescription>
+                                <ul className="flex flex-col gap-2">
+                                    {installationMessages.map((message, index) => (
+                                        <li key={index} className="p-2 rounded-lg bg-background border border-1 text-muted-foreground">
+                                            {message}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </DialogContent>
+                        </Dialog>
                     </div>
                 </form>
             </Form>

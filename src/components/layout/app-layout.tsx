@@ -7,11 +7,11 @@ function Applayout() {
         <>
             <Header />
             <div className="flex-grow flex flex-col">
-                <div className="container px-4 md:px-8 flex-grow flex flex-col pt-4 md:pt-8">
+                <div className="container flex-grow flex flex-col pt-4 md:pt-8">
                     <Outlet />
                 </div>
             </div>
-            <div className="container px-4 md:px-8">
+            <div className="container">
                 <Footer />
             </div>
         </>
