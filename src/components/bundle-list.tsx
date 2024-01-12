@@ -13,8 +13,8 @@ export default function BundleList() {
         navigate(`/bundle/${bundleId}`);
     };
 
-    if (isLoading) return <div>Loading bundles...</div>;
-    if (error) return <div>Aucun Bundle trouvé</div>;
+    if (isLoading) return <div>Chargement des bundles...</div>;
+    if (error) return <div>Aucun Bundle trouvé.</div>;
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {bundles &&

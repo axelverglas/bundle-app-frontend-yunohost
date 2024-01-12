@@ -7,9 +7,10 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import AppCard from './app-card';
-import React from 'react';
+import React, { useState } from 'react';
 import { api } from '../lib/api';
 import { useNavigate } from 'react-router-dom';
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './ui/dialog';
 
 export default function FormInstall({ id }: { id: number }) {
     const { data: admins, isLoading: isLoadingAdmins } = useGetAdmins();
@@ -73,6 +74,13 @@ export default function FormInstall({ id }: { id: number }) {
             console.error('Erreur lors de la création du bundle :', error);
         }
     }
+
+    const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] = useState(false);
+
+    const handleShowConfirmationDialog = () => {
+        setIsConfirmationDialogOpen(true);
+    };
+
 
     return (
         <div className="flex flex-col gap-6">
@@ -182,7 +190,7 @@ export default function FormInstall({ id }: { id: number }) {
                                             ))}
                                         </div>
                                     ) : (
-                                        <p>Loading bundle...</p>
+                                        <p>Chargement des applications...</p>
                                     )}
                                 </FormControl>
                             </FormItem>
@@ -192,9 +200,21 @@ export default function FormInstall({ id }: { id: number }) {
                         <Button type="button" variant="ghost" onClick={() => navigate('/')}>
                             Retour
                         </Button>
-                        <Button type="submit" className="w-fit">
-                            Installer
-                        </Button>
+                        <Dialog>
+                            <DialogTrigger>
+                                <Button type="submit" onClick={handleShowConfirmationDialog}>
+                                    Installer
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>Installation...</DialogTitle>
+                                </DialogHeader>
+                                <DialogDescription>
+                                    Informations de téléchargement...
+                                </DialogDescription>
+                            </DialogContent>
+                        </Dialog>
                     </div>
                 </form>
             </Form>

@@ -11,27 +11,15 @@ function Header() {
                 <Link to="/">
                     <img src={Logo} alt="logo" className="h-12" />
                 </Link>
-                <Link
-                    to="/bundle/create"
-                    className="ml-5 hover:bg-gray-700 hover:text-white rounded-lg px-4 py-2 transition-all"
-                >
-                    Créer un bundle
-                </Link>
                 <div className="ml-auto flex space-x-2">
                     <a
-                        href="https://github.com/axelverglas/bundle-app-frontend-yunohost"
+                        href="https://github.com/axelverglas/bundle-app-backend-yunohost/blob/main/doc-technique.md"
                         title="Lien Documentation"
                         target="_blank"
                         rel="noreferrer"
-                        className={cn(
-                            buttonVariants({
-                                variant: 'ghost',
-                            }),
-                            'w-9 px-0 cursor-pointer'
-                        )}
+                        className="hover:bg-gray-200 p-2 rounded"
                     >
-                        <Icons.gitHub className="h-4 w-4" />
-                        <span className="sr-only">GitHub Documentation</span>
+                        <span>Documentation Technique</span>
                     </a>
                 </div>
             </div>
