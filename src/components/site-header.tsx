@@ -10,7 +10,7 @@ function Header() {
                 </Link>
                 <div className="ml-auto flex space-x-2">
                     <a
-                        href="https://github.com/axelverglas/bundle-app-backend-yunohost/blob/main/doc-technique.md"
+                        href="https://github.com/axelverglas/bundle-app-backend-yunohost"
                         title="Lien Documentation"
                         target="_blank"
                         rel="noreferrer"

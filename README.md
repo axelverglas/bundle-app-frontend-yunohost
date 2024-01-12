@@ -1,5 +1,3 @@
-# Bunle APP for Yunohost
-
 ## Installation
 
 ```
